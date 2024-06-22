@@ -1,3 +1,4 @@
+using Game.Scripts.Game_Engine.Item_Stack_Feature.Stack;
 using Game.Scripts.Game_Engine.Movement_Feature;
 using Game.Scripts.Game_Engine.Movement_Feature.Systems;
 using Game.Scripts.Game_Engine.Rotation_Feature.Systems;
@@ -38,6 +39,10 @@ namespace Game.Scripts.Infrastructure
                 .Add(Create<CurrentSpeedDetect_System>())
                 .Add(Create<IsMovingDetect_System>())
                 .Add(Create<TransformRotate_System>())
+                .Add(Create<FreeSpaceCounter_System>())
+                .Add(Create<TriggeredItemsDetect_System>())
+                .Add(Create<PushTriggeredItemsToStack_System>())
+                .Add(Create<AddItemsToStack_System>())
                 .Add(Create<PlayerMove_System>())
                 .Add(Create<PlayerRotate_System>())
                 .Add(Create<PlayerAnimator_System>())

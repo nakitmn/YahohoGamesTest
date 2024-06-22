@@ -1,5 +1,7 @@
-﻿using Game.Scripts.Game_Engine.Movement_Feature;
-using Game.Scripts.Game_Engine.Movement_Feature.Components;
+﻿using System.Collections.Generic;
+using Game.Scripts.Game_Engine.Item_Stack_Feature.Item;
+using Game.Scripts.Game_Engine.Item_Stack_Feature.Stack;
+using Game.Scripts.Game_Engine.Movement_Feature;
 using Game.Scripts.Game_Engine.Rotation_Feature;
 using Leopotam.EcsLite;
 using Leopotam.EcsLite.Di;
@@ -22,8 +24,8 @@ namespace Game.Scripts.Player_Module.Systems
         public void Init(IEcsSystems systems)
         {
             var playerEntity = _world.Value.NewEntity();
-            _context.Entity = _world.Value.PackEntity(playerEntity);
-
+            _context.Compose(_world.Value.PackEntity(playerEntity));
+            
             MovementFeature.InitEntity(
                 playerEntity,
                 _world.Value,
@@ -35,6 +37,17 @@ namespace Game.Scripts.Player_Module.Systems
                 _world.Value,
                 new RotationFeatureParams(_context.RotateTransform, _config.RotateSpeed)
             );
+
+            var stackEntity = _world.Value.NewEntity();
+
+            ItemStackFeature.InitEntity(
+                stackEntity,
+                _world.Value,
+                new ItemStackFeatureParams(_context.ItemStackContext,10)
+            );
+            
+            _world.Value.GetPool<TriggeredItems_Component>().Add(playerEntity).Value = new List<StackItemContext>();
+            _world.Value.GetPool<StackEntity_Component>().Add(playerEntity).Value = _world.Value.PackEntity(stackEntity);
         }
     }
 }
