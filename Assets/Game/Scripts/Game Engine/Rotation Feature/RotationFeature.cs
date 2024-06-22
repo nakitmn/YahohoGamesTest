@@ -7,13 +7,13 @@ namespace Game.Scripts.Game_Engine.Rotation_Feature
     {
         public static void InitEntity(int entity, EcsWorld world, RotationFeatureParams featureParams)
         {
-            var speedPool = world.GetPool<RotateSpeed_Component>();
-            var transformPool = world.GetPool<RotateTransform_Component>();
-            var directionPool = world.GetPool<RotateDirection_Component>();
-
-            transformPool.Add(entity).Transform = featureParams.Transform;
-            speedPool.Add(entity).Speed = featureParams.Speed;
-            directionPool.Add(entity);
+            FeatureHelper.RegisterComponent<RotateTransform_Component>(entity, world,
+                pool => pool.Get(entity).Transform = featureParams.Transform);
+            
+            FeatureHelper.RegisterComponent<RotateSpeed_Component>(entity, world,
+                pool => pool.Get(entity).Speed = featureParams.Speed);
+            
+            FeatureHelper.RegisterComponent<RotateDirection_Component>(entity, world);
         }
     }
 }

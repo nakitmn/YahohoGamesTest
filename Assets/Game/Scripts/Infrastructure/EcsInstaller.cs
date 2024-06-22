@@ -35,9 +35,12 @@ namespace Game.Scripts.Infrastructure
             
             _systems
                 .Add(Create<TransformMove_System>())
+                .Add(Create<CurrentSpeedDetect_System>())
+                .Add(Create<IsMovingDetect_System>())
                 .Add(Create<TransformRotate_System>())
                 .Add(Create<PlayerMove_System>())
                 .Add(Create<PlayerRotate_System>())
+                .Add(Create<PlayerAnimator_System>())
 #if UNITY_EDITOR
                 .Add(new Leopotam.EcsLite.UnityEditor.EcsWorldDebugSystem())
 #endif

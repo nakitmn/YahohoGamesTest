@@ -22,6 +22,7 @@ namespace Game.Scripts.Player_Module.Systems
         public void Init(IEcsSystems systems)
         {
             var playerEntity = _world.Value.NewEntity();
+            _context.Entity = _world.Value.PackEntity(playerEntity);
 
             MovementFeature.InitEntity(
                 playerEntity,
@@ -34,8 +35,6 @@ namespace Game.Scripts.Player_Module.Systems
                 _world.Value,
                 new RotationFeatureParams(_context.RotateTransform, _config.RotateSpeed)
             );
-
-            _context.Entity = _world.Value.PackEntity(playerEntity);
         }
     }
 }

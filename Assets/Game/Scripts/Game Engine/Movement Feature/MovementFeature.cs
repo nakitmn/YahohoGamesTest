@@ -1,4 +1,5 @@
-﻿using Game.Scripts.Game_Engine.Movement_Feature.Components;
+﻿using System;
+using Game.Scripts.Game_Engine.Movement_Feature.Components;
 using Leopotam.EcsLite;
 
 namespace Game.Scripts.Game_Engine.Movement_Feature
@@ -7,13 +8,15 @@ namespace Game.Scripts.Game_Engine.Movement_Feature
     {
         public static void InitEntity(int entity, EcsWorld world, MovementFeatureParams featureParams)
         {
-            var speedPool = world.GetPool<MoveSpeed_Component>();
-            var transformPool = world.GetPool<MoveTransform_Component>();
-            var directionPool = world.GetPool<MoveDirection_Component>();
+            FeatureHelper.RegisterComponent<MoveTransform_Component>(entity, world,
+                pool => pool.Get(entity).Transform = featureParams.Transform);
 
-            transformPool.Add(entity).Transform = featureParams.Transform;
-            speedPool.Add(entity).Speed = featureParams.Speed;
-            directionPool.Add(entity);
+            FeatureHelper.RegisterComponent<MoveSpeed_Component>(entity, world,
+                pool => pool.Get(entity).Speed = featureParams.Speed);
+
+            FeatureHelper.RegisterComponent<MoveDirection_Component>(entity, world);
+            FeatureHelper.RegisterComponent<IsMoving_Component>(entity, world);
+            FeatureHelper.RegisterComponent<CurrentSpeed_Component>(entity, world);
         }
     }
 }
