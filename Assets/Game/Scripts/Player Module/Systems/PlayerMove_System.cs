@@ -1,4 +1,5 @@
 ﻿using Game.Scripts.Game_Engine.Movement_Feature;
+using Game.Scripts.Game_Engine.Movement_Feature.Components;
 using Game.Scripts.Input_Module;
 using Leopotam.EcsLite;
 using Leopotam.EcsLite.Di;

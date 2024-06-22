@@ -1,4 +1,6 @@
 using Game.Scripts.Game_Engine.Movement_Feature;
+using Game.Scripts.Game_Engine.Movement_Feature.Systems;
+using Game.Scripts.Game_Engine.Rotation_Feature.Systems;
 using Game.Scripts.Player_Module;
 using Game.Scripts.Player_Module.Systems;
 using Leopotam.EcsLite;
@@ -32,8 +34,10 @@ namespace Game.Scripts.Infrastructure
             }
             
             _systems
-                .Add(CreateSystem<TransformMove_System>())
-                .Add(CreateSystem<PlayerMove_System>())
+                .Add(Create<TransformMove_System>())
+                .Add(Create<TransformRotate_System>())
+                .Add(Create<PlayerMove_System>())
+                .Add(Create<PlayerRotate_System>())
 #if UNITY_EDITOR
                 .Add(new Leopotam.EcsLite.UnityEditor.EcsWorldDebugSystem())
 #endif
@@ -61,7 +65,7 @@ namespace Game.Scripts.Infrastructure
             }
         }
 
-        private T CreateSystem<T>()
+        private T Create<T>()
         {
             return Container.Instantiate<T>();
         }

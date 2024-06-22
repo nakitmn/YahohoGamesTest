@@ -1,8 +1,9 @@
-﻿using Leopotam.EcsLite;
+﻿using Game.Scripts.Game_Engine.Movement_Feature.Components;
+using Leopotam.EcsLite;
 using Leopotam.EcsLite.Di;
 using UnityEngine;
 
-namespace Game.Scripts.Game_Engine.Movement_Feature
+namespace Game.Scripts.Game_Engine.Movement_Feature.Systems
 {
     public struct TransformMove_System : IEcsRunSystem
     {

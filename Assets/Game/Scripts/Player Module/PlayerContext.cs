@@ -5,10 +5,11 @@ namespace Game.Scripts.Player_Module
 {
     public sealed class PlayerContext : MonoBehaviour
     {
-        public Transform MoveTransform => _moveTransform;
-
         [SerializeField] private Transform _moveTransform;
+        [SerializeField] private Transform _rotateTransform;
 
         public EcsPackedEntity Entity { get; set; }
+        public Transform MoveTransform => _moveTransform;
+        public Transform RotateTransform => _rotateTransform;
     }
 }

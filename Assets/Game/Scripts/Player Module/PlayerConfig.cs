@@ -6,5 +6,6 @@ namespace Game.Scripts.Player_Module
     public sealed class PlayerConfig : ScriptableObject
     {
         public float MoveSpeed = 10f;
+        public float RotateSpeed = 10f;
     }
 }
