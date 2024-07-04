@@ -1320,7 +1320,7 @@ MonoBehaviour:
   _moveTransform: {fileID: 142540921}
   _rotateTransform: {fileID: 1007207109}
   _animator: {fileID: 1573672027}
-  _stackTriggersContext: {fileID: 1480161090}
+  _triggersContext: {fileID: 1480161090}
   _itemStackContext: {fileID: 1597210912}
 --- !u!114 &142540923
 MonoBehaviour:
@@ -2301,7 +2301,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 469411722}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.44175175, y: -0.000000015436493, z: 0.000000007600953, w: 0.89713734}
+  m_LocalRotation: {x: 0.44175175, y: 0.000000015436479, z: -0.0000000076009465, w: 0.89713734}
   m_LocalPosition: {x: 0, y: 15, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -3134,7 +3134,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 963194225}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.44175175, y: -0.000000015436493, z: 0.000000007600953, w: 0.89713734}
+  m_LocalRotation: {x: 0.44175175, y: 0.000000015436479, z: -0.0000000076009465, w: 0.89713734}
   m_LocalPosition: {x: 0, y: 15, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -4150,7 +4150,7 @@ GameObject:
   - component: {fileID: 1480161088}
   - component: {fileID: 1480161090}
   m_Layer: 0
-  m_Name: Items Collector
+  m_Name: Triggers Context
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

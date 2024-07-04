@@ -1,5 +1,4 @@
-﻿using Game.Scripts.Game_Engine.Item_Stack_Feature.Item;
-using Game.Scripts.Game_Engine.Item_Stack_Feature.Stack;
+﻿using Game.Scripts.Game_Engine.Item_Stack_Feature.Stack;
 using Game.Scripts.Game_Engine.Trigger_Feature;
 using Leopotam.EcsLite;
 using UnityEngine;
@@ -11,9 +10,8 @@ namespace Game.Scripts.Player_Module
         [SerializeField] private Transform _moveTransform;
         [SerializeField] private Transform _rotateTransform;
         [SerializeField] private Animator _animator;
-        [SerializeField] private MonoTriggersContext _stackTriggersContext;
+        [SerializeField] private MonoTriggersContext _triggersContext;
         [SerializeField] private ItemStackContext _itemStackContext;
-        
         
         public EcsPackedEntity Entity { get; private set; }
 
@@ -26,7 +24,7 @@ namespace Game.Scripts.Player_Module
         public void Compose(EcsPackedEntity packedEntity)
         {
             Entity = packedEntity;
-            _stackTriggersContext.Compose(packedEntity);
+            _triggersContext.Compose(packedEntity);
         }
     }
 }

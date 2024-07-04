@@ -1,4 +1,4 @@
-﻿using Game.Scripts.Input_Module;
+﻿using UnityEngine;
 using Zenject;
 
 namespace Game.Scripts.Infrastructure
@@ -7,7 +7,7 @@ namespace Game.Scripts.Infrastructure
     {
         public override void InstallBindings()
         {
-
+            Application.targetFrameRate = 60;
         }
     }
 }
