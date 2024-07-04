@@ -43,7 +43,7 @@ namespace Game.Scripts.Player_Module.Systems
             ItemStackFeature.InitEntity(
                 stackEntity,
                 _world.Value,
-                new ItemStackFeatureParams(_context.ItemStackContext,10)
+                new ItemStackFeatureParams(_context.ItemStackContext,_config.DefaultStackCapacity)
             );
             
             _world.Value.GetPool<TriggeredItems_Component>().Add(playerEntity).Value = new List<StackItemContext>();

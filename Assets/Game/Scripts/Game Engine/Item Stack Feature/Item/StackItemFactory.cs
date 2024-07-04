@@ -1,13 +1,10 @@
-﻿using Game.Scripts.Game_Engine.Movement_Feature;
-using Leopotam.EcsLite;
-using UnityEngine;
-using Zenject;
+﻿using Zenject;
 
 namespace Game.Scripts.Game_Engine.Item_Stack_Feature.Item
 {
     public sealed class StackItemFactory
     {
-        private DiContainer _diContainer;
+        private readonly DiContainer _diContainer;
 
         public StackItemFactory(DiContainer diContainer)
         {
@@ -16,10 +13,6 @@ namespace Game.Scripts.Game_Engine.Item_Stack_Feature.Item
 
         public StackItemContext CreateItem(StackItemConfig config)
         {
-            /*var stackItemContext = Object.Instantiate(config.Prefab);
-            _diContainer.Inject(stackItemContext);
-            return stackItemContext;*/
-
             return _diContainer.InstantiatePrefabForComponent<StackItemContext>(config.Prefab);
         }
     }

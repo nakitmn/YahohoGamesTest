@@ -7,5 +7,6 @@ namespace Game.Scripts.Player_Module
     {
         public float MoveSpeed = 10f;
         public float RotateSpeed = 10f;
+        public int DefaultStackCapacity = 10;
     }
 }

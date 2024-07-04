@@ -13,3 +13,5 @@ MonoBehaviour:
   m_Name: Player Config
   m_EditorClassIdentifier: 
   MoveSpeed: 10
+  RotateSpeed: 10
+  DefaultStackCapacity: 20
