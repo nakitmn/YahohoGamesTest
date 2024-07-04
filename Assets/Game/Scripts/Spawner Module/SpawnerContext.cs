@@ -1,6 +1,9 @@
-﻿using DG.Tweening;
+﻿using System;
+using DG.Tweening;
+using Game.Scripts.UI.Timer;
 using Leopotam.EcsLite;
 using UnityEngine;
+using Zenject;
 
 namespace Game.Scripts.Spawner_Module
 {
@@ -10,6 +13,10 @@ namespace Game.Scripts.Spawner_Module
         [SerializeField] private Transform _spawnPoint;
         [SerializeField] private float _radius;
         [SerializeField] private float _spawnDelay;
+        [SerializeField] private TimerView _timerView;
+
+        private DiContainer _diContainer;
+        private SpawnTimerAdapter _spawnTimerAdapter;
 
         public GameObject Prefab => _prefab;
         public Transform SpawnPoint => _spawnPoint;
@@ -18,9 +25,21 @@ namespace Game.Scripts.Spawner_Module
 
         public EcsPackedEntity Entity { get; private set; }
 
-        public void Compose(EcsPackedEntity ecsPackedEntity)
+        [Inject]
+        public void Construct(DiContainer diContainer)
         {
-            Entity = ecsPackedEntity;
+            _diContainer = diContainer;
+        }
+
+        public void Compose(EcsPackedEntity packedEntity)
+        {
+            Entity = packedEntity;
+            _spawnTimerAdapter = _diContainer.Instantiate<SpawnTimerAdapter>(new object[] {_timerView, packedEntity});
+        }
+
+        private void Update()
+        {
+            _spawnTimerAdapter.Update();
         }
 
         public void OnSpawned(GameObject spawnedObject)
@@ -34,9 +53,16 @@ namespace Game.Scripts.Spawner_Module
                         .SetLink(spawnedObject)
                 )
                 .Join(
-                    objectTransform.DOPunchPosition(Vector3.up, 0.3f,1,1f)
+                    objectTransform.DOPunchPosition(Vector3.up, 0.3f, 1, 1f)
                         .SetLink(spawnedObject)
                 );
+        }
+
+        private void OnDrawGizmos()
+        {
+            Gizmos.color = Color.yellow;
+            Gizmos.DrawWireSphere(_spawnPoint.position, _radius);
+            Gizmos.color = Color.white;
         }
     }
 }
