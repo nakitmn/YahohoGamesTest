@@ -1,11 +1,24 @@
 ﻿using Game.Scripts.Game_Engine.Rotation_Feature.Components;
 using Leopotam.EcsLite;
+using UnityEngine;
 
 namespace Game.Scripts.Game_Engine.Rotation_Feature
 {
     public static class RotationFeature
     {
-        public static void InitEntity(int entity, EcsWorld world, RotationFeatureParams featureParams)
+        public readonly struct FeatureParams
+        {
+            public readonly Transform Transform;
+            public readonly float Speed;
+
+            public FeatureParams(Transform transform, float speed)
+            {
+                Transform = transform;
+                Speed = speed;
+            }
+        }
+        
+        public static void InitEntity(int entity, EcsWorld world, FeatureParams featureParams)
         {
             FeatureHelper.RegisterComponent<RotateTransform_Component>(entity, world,
                 pool => pool.Get(entity).Transform = featureParams.Transform);

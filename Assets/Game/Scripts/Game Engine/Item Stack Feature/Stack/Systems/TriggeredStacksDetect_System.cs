@@ -1,0 +1,30 @@
+﻿using Game.Scripts.Game_Engine.Trigger_Feature;
+using Leopotam.EcsLite;
+using Leopotam.EcsLite.Di;
+
+namespace Game.Scripts.Game_Engine.Item_Stack_Feature.Stack
+{
+    public struct TriggeredStacksDetect_System : IEcsRunSystem
+    {
+        private EcsFilterInject<Inc<Triggers_Component, TriggeredStacks_Component>> _filter;
+
+        public void Run(IEcsSystems systems)
+        {
+            foreach (var entity in _filter.Value)
+            {
+                var triggersComponent = _filter.Pools.Inc1.Get(entity);
+                ref var itemsComponent = ref _filter.Pools.Inc2.Get(entity);
+
+                itemsComponent.Value.Clear();
+
+                foreach (var collider in triggersComponent.Colliders)
+                {
+                    if (collider.TryGetComponent<ItemStackContext>(out var stackContext))
+                    {
+                        itemsComponent.Value.Add(stackContext);
+                    }
+                }
+            }
+        }
+    }
+}

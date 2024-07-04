@@ -1,12 +1,25 @@
 ﻿using System;
 using Game.Scripts.Game_Engine.Movement_Feature.Components;
 using Leopotam.EcsLite;
+using UnityEngine;
 
 namespace Game.Scripts.Game_Engine.Movement_Feature
 {
     public static class MovementFeature
     {
-        public static void InitEntity(int entity, EcsWorld world, MovementFeatureParams featureParams)
+        public readonly struct FeatureParams
+        {
+            public readonly Transform Transform;
+            public readonly float Speed;
+
+            public FeatureParams(Transform transform, float speed)
+            {
+                Transform = transform;
+                Speed = speed;
+            }
+        }
+        
+        public static void InitEntity(int entity, EcsWorld world, FeatureParams featureParams)
         {
             FeatureHelper.RegisterComponent<MoveTransform_Component>(entity, world,
                 pool => pool.Get(entity).Transform = featureParams.Transform);

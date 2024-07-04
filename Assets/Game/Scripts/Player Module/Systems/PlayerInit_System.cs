@@ -30,24 +30,26 @@ namespace Game.Scripts.Player_Module.Systems
             MovementFeature.InitEntity(
                 playerEntity,
                 _world.Value,
-                new MovementFeatureParams(_context.MoveTransform, _config.MoveSpeed)
+                new (_context.MoveTransform, _config.MoveSpeed)
             );
 
             RotationFeature.InitEntity(
                 playerEntity,
                 _world.Value,
-                new RotationFeatureParams(_context.RotateTransform, _config.RotateSpeed)
+                new (_context.RotateTransform, _config.RotateSpeed)
             );
 
             var stackEntity = _world.Value.NewEntity();
+            _context.ItemStackContext.Compose(_world.Value.PackEntity(stackEntity));
 
             ItemStackFeature.InitEntity(
                 stackEntity,
                 _world.Value,
-                new ItemStackFeatureParams(_context.ItemStackContext, _config.DefaultStackCapacity)
+                new (_context.ItemStackContext, _config.DefaultStackCapacity)
             );
 
             _world.Value.GetPool<TriggeredItems_Component>().Add(playerEntity).Value = new List<StackItemContext>();
+            _world.Value.GetPool<TriggeredStacks_Component>().Add(playerEntity).Value = new List<ItemStackContext>();
             _world.Value.GetPool<StackEntity_Component>().Add(playerEntity).Value =
                 _world.Value.PackEntity(stackEntity);
         }

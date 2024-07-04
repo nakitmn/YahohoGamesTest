@@ -1,5 +1,6 @@
 ﻿using DG.Tweening;
 using Game.Scripts.Game_Engine.Item_Stack_Feature.Item;
+using Leopotam.EcsLite;
 using UnityEngine;
 
 namespace Game.Scripts.Game_Engine.Item_Stack_Feature.Stack
@@ -8,6 +9,13 @@ namespace Game.Scripts.Game_Engine.Item_Stack_Feature.Stack
     {
         [SerializeField] private Transform _pivot;
         [SerializeField] private float _offsetValue = 0.25f;
+
+        public EcsPackedEntity Entity { get; private set; }
+
+        public void Compose( EcsPackedEntity packedEntity)
+        {
+            Entity = packedEntity;
+        }
         
         public void Push(StackItemContext stackItemContext, int index)
         {

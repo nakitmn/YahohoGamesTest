@@ -1,12 +1,10 @@
+using System;
 using Game.Scripts.Game_Engine.Item_Stack_Feature.Stack;
-using Game.Scripts.Game_Engine.Movement_Feature;
 using Game.Scripts.Game_Engine.Movement_Feature.Systems;
 using Game.Scripts.Game_Engine.Rotation_Feature.Systems;
 using Game.Scripts.Game_Engine.Spawn_Feature.Spawners.Radius_Spawner.Systems;
 using Game.Scripts.Game_Engine.Spawn_Feature.Systems;
-using Game.Scripts.Game_Engine.Timer_Feature.Components;
 using Game.Scripts.Game_Engine.Timer_Feature.Systems;
-using Game.Scripts.Player_Module;
 using Game.Scripts.Player_Module.Systems;
 using Leopotam.EcsLite;
 using Leopotam.EcsLite.Di;
@@ -17,28 +15,26 @@ namespace Game.Scripts.Infrastructure
 {
     public sealed class EcsInstaller : MonoInstaller
     {
-        private EcsWorld _world;
         private IEcsSystems _systems;
 
         public override void InstallBindings()
         {
-            _world = new EcsWorld();
-            _systems = new EcsSystems(_world);
-            
+            var world = new EcsWorld();
+            _systems = new EcsSystems(world);
+
             Container.Bind<EcsWorld>()
-                .FromInstance(_world)
+                .FromInstance(world)
+                .AsSingle();
+            
+            Container.Bind<IEcsSystems>()
+                .FromInstance(_systems)
                 .AsSingle();
         }
 
-        public override void Start()
+        public void Awake()
         {
-            var initSystems = Container.Resolve<IEcsInitSystem[]>();
+            AddInitSystems();
 
-            foreach (var initSystem in initSystems)
-            {
-                _systems.Add(initSystem);
-            }
-            
             _systems
                 .Add(Create<TransformMove_System>())
                 .Add(Create<CurrentSpeedDetect_System>())
@@ -46,7 +42,9 @@ namespace Game.Scripts.Infrastructure
                 .Add(Create<TransformRotate_System>())
                 .Add(Create<FreeSpaceCounter_System>())
                 .Add(Create<TriggeredItemsDetect_System>())
+                .Add(Create<TriggeredStacksDetect_System>())
                 .Add(Create<PushTriggeredItemsToStack_System>())
+                .Add(Create<PushItemsToTriggeredStack_System>())
                 .Add(Create<AddItemsToStack_System>())
                 .Add(Create<PlayerMove_System>())
                 .Add(Create<PlayerRotate_System>())
@@ -61,27 +59,16 @@ namespace Game.Scripts.Infrastructure
 #if UNITY_EDITOR
                 .Add(new EcsWorldDebugSystem())
 #endif
-                .Inject()
-                .Init();
+                .Inject();
         }
 
-        private void Update()
+        private void AddInitSystems()
         {
-            _systems?.Run();
-        }
+            var initSystems = Container.Resolve<IEcsInitSystem[]>();
 
-        private void OnDestroy()
-        {
-            if (_systems != null)
+            foreach (var initSystem in initSystems)
             {
-                _systems.Destroy();
-                _systems = null;
-            }
-
-            if (_world != null)
-            {
-                _world.Destroy();
-                _world = null;
+                _systems.Add(initSystem);
             }
         }
 

@@ -6,7 +6,19 @@ namespace Game.Scripts.Game_Engine.Item_Stack_Feature.Stack
 {
     public static class ItemStackFeature
     {
-        public static void InitEntity(int entity, EcsWorld world, ItemStackFeatureParams featureParams)
+        public readonly struct FeatureParams
+        {
+            public readonly ItemStackContext Context;
+            public readonly int Capacity;
+
+            public FeatureParams(ItemStackContext context, int capacity)
+            {
+                Context = context;
+                Capacity = capacity;
+            }
+        }
+        
+        public static void InitEntity(int entity, EcsWorld world, FeatureParams featureParams)
         {
             FeatureHelper.RegisterComponent<ItemStackContext_Component>(entity, world, 
                 pool => pool.Get(entity).Value = featureParams.Context);
