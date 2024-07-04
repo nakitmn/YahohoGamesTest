@@ -56,6 +56,7 @@ namespace Game.Scripts.Infrastructure
                 .Add(Create<RepeatTimer_System>())
                 .Add(Create<SpawnOnTimerExpired_System>())
                 .Add(Create<Spawner_System>())
+                .Add(Create<SpawnerCompleteHandle_System>())
                 .Add(Create<Spawn_System>())
 #if UNITY_EDITOR
                 .Add(new EcsWorldDebugSystem())

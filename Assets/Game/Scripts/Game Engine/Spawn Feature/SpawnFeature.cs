@@ -24,6 +24,7 @@ namespace Game.Scripts.Game_Engine.Spawn_Feature
                     spawnComponent.Position = featureParams.Position;
                     spawnComponent.Rotation = featureParams.Rotation;
                     spawnComponent.Parent = featureParams.Parent;
+                    spawnComponent.CallbackEntity = featureParams.CallbackEntity;
                 }
             );
         }

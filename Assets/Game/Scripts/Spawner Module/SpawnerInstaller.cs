@@ -1,4 +1,5 @@
-﻿using Zenject;
+﻿using Game.Scripts.Spawner_Module.Systems;
+using Zenject;
 
 namespace Game.Scripts.Spawner_Module
 {

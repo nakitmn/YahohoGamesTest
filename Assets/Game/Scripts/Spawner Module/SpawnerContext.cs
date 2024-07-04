@@ -1,4 +1,5 @@
-﻿using Leopotam.EcsLite;
+﻿using DG.Tweening;
+using Leopotam.EcsLite;
 using UnityEngine;
 
 namespace Game.Scripts.Spawner_Module
@@ -20,6 +21,22 @@ namespace Game.Scripts.Spawner_Module
         public void Compose(EcsPackedEntity ecsPackedEntity)
         {
             Entity = ecsPackedEntity;
+        }
+
+        public void OnSpawned(GameObject spawnedObject)
+        {
+            var objectTransform = spawnedObject.transform;
+
+            DOTween.Sequence()
+                .AppendCallback(() => objectTransform.localScale = Vector3.zero)
+                .Append(
+                    objectTransform.DOScale(Vector3.one, 0.25f)
+                        .SetLink(spawnedObject)
+                )
+                .Join(
+                    objectTransform.DOPunchPosition(Vector3.up, 0.3f,1,1f)
+                        .SetLink(spawnedObject)
+                );
         }
     }
 }

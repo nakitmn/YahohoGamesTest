@@ -34,7 +34,8 @@ namespace Game.Scripts.Game_Engine.Spawn_Feature.Spawners.Radius_Spawner.Systems
                             spawnPrefabComponent.Value,
                             spawnPosition,
                             Quaternion.identity,
-                            spawnPointComponent.Value
+                            spawnPointComponent.Value,
+                            _world.Value.PackEntity(entity)
                         )
                     );
                 }

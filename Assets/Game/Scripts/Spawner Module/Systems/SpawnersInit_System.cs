@@ -3,7 +3,7 @@ using Game.Scripts.Game_Engine.Timer_Feature;
 using Leopotam.EcsLite;
 using Leopotam.EcsLite.Di;
 
-namespace Game.Scripts.Spawner_Module
+namespace Game.Scripts.Spawner_Module.Systems
 {
     public struct SpawnersInit_System : IEcsInitSystem
     {
@@ -25,6 +25,7 @@ namespace Game.Scripts.Spawner_Module
                 var entity = SpawnerFeature.CreateEntity(
                     _world.Value,
                     new(
+                        spawnerContext,
                         spawnerContext.Prefab,
                         spawnerContext.SpawnPoint,
                         spawnerContext.Radius

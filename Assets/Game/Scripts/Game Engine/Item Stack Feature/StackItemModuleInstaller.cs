@@ -9,9 +9,6 @@ namespace Game.Scripts.Game_Engine.Item_Stack_Feature.Item
             Container.Bind<DummyStackItem>()
                 .FromComponentsInHierarchy()
                 .AsCached();
-            
-            Container.Bind<StackItemFactory>()
-                .AsSingle();
         }
     }
 }

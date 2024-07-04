@@ -1,4 +1,6 @@
-﻿using UnityEngine;
+﻿using Game.Scripts.Game_Engine.Spawn_Feature;
+using Leopotam.EcsLite;
+using UnityEngine;
 using Zenject;
 
 namespace Game.Scripts.Game_Engine.Item_Stack_Feature.Item
@@ -6,15 +8,15 @@ namespace Game.Scripts.Game_Engine.Item_Stack_Feature.Item
     public class DummyStackItem : MonoBehaviour
     {
         private const string PREFIX = "DUMMY - ";
-        
+
         [SerializeField] private StackItemConfig _config;
-        
-        private StackItemFactory _factory;
+
+        private EcsWorld _ecsWorld;
 
         [Inject]
-        public void Construct(StackItemFactory factory)
+        public void Construct(EcsWorld ecsWorld)
         {
-            _factory = factory;
+            _ecsWorld = ecsWorld;
         }
 
         private void OnValidate()
@@ -33,10 +35,15 @@ namespace Game.Scripts.Game_Engine.Item_Stack_Feature.Item
         {
             if (_config != null)
             {
-                var stackItemContext = _factory.CreateItem(_config);
-                stackItemContext.Transform.SetParent(transform.parent);
-                stackItemContext.Transform.localPosition = transform.localPosition;
-                stackItemContext.Transform.localRotation = transform.localRotation;
+                SpawnFeature.CreateEntity(
+                    _ecsWorld,
+                    new(
+                        _config.Prefab.gameObject,
+                        transform.position,
+                        transform.rotation,
+                        transform.parent
+                    )
+                );
             }
 
             Destroy(gameObject);

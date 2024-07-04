@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using Leopotam.EcsLite;
+using UnityEngine;
 
 namespace Game.Scripts.Game_Engine.Spawn_Feature.Components
 {
@@ -8,5 +9,6 @@ namespace Game.Scripts.Game_Engine.Spawn_Feature.Components
         public Vector3 Position;
         public Quaternion Rotation;
         public Transform Parent;
+        public EcsPackedEntity CallbackEntity;
     }
 }
