@@ -9,10 +9,10 @@ namespace Game.Scripts.Game_Engine.Rotation_Feature
         {
             FeatureHelper.RegisterComponent<RotateTransform_Component>(entity, world,
                 pool => pool.Get(entity).Transform = featureParams.Transform);
-            
+
             FeatureHelper.RegisterComponent<RotateSpeed_Component>(entity, world,
                 pool => pool.Get(entity).Speed = featureParams.Speed);
-            
+
             FeatureHelper.RegisterComponent<RotateDirection_Component>(entity, world);
         }
     }

@@ -2,10 +2,15 @@ using Game.Scripts.Game_Engine.Item_Stack_Feature.Stack;
 using Game.Scripts.Game_Engine.Movement_Feature;
 using Game.Scripts.Game_Engine.Movement_Feature.Systems;
 using Game.Scripts.Game_Engine.Rotation_Feature.Systems;
+using Game.Scripts.Game_Engine.Spawn_Feature.Spawners.Radius_Spawner.Systems;
+using Game.Scripts.Game_Engine.Spawn_Feature.Systems;
+using Game.Scripts.Game_Engine.Timer_Feature.Components;
+using Game.Scripts.Game_Engine.Timer_Feature.Systems;
 using Game.Scripts.Player_Module;
 using Game.Scripts.Player_Module.Systems;
 using Leopotam.EcsLite;
 using Leopotam.EcsLite.Di;
+using Mitfart.LeoECSLite.UnityIntegration;
 using Zenject;
 
 namespace Game.Scripts.Infrastructure
@@ -46,8 +51,14 @@ namespace Game.Scripts.Infrastructure
                 .Add(Create<PlayerMove_System>())
                 .Add(Create<PlayerRotate_System>())
                 .Add(Create<PlayerAnimator_System>())
+                .Add(Create<TimerTick_System>())
+                .Add(Create<TimerExpiredTrack_System>())
+                .Add(Create<RepeatTimer_System>())
+                .Add(Create<SpawnOnTimerExpired_System>())
+                .Add(Create<Spawner_System>())
+                .Add(Create<Spawn_System>())
 #if UNITY_EDITOR
-                .Add(new Leopotam.EcsLite.UnityEditor.EcsWorldDebugSystem())
+                .Add(new EcsWorldDebugSystem())
 #endif
                 .Inject()
                 .Init();

@@ -1,4 +1,5 @@
-﻿using Game.Scripts.Game_Engine.Item_Stack_Feature.Item;
+﻿using DG.Tweening;
+using Game.Scripts.Game_Engine.Item_Stack_Feature.Item;
 using UnityEngine;
 
 namespace Game.Scripts.Game_Engine.Item_Stack_Feature.Stack
@@ -10,9 +11,15 @@ namespace Game.Scripts.Game_Engine.Item_Stack_Feature.Stack
         
         public void Push(StackItemContext stackItemContext, int index)
         {
+            var stackPosition = GetStackPositionFor(index);
             var itemTransform = stackItemContext.Transform;
             itemTransform.SetParent(_pivot);
-            itemTransform.localPosition = Vector3.up * _offsetValue * index;
+            itemTransform.DOLocalJump(stackPosition, 1f, 1, 0.15f);
+        }
+
+        private Vector3 GetStackPositionFor(int index)
+        {
+            return Vector3.up * _offsetValue * index;
         }
     }
 }
